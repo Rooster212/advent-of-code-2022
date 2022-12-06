@@ -4,31 +4,39 @@ import functools
 # B, Y = Paper
 # C, Z = Scissors
 
+def calculate(opponent, result):
 
-def calculate(opponent, personal):
-  result = win_mappings[str(opponent)+str(personal)]
-  selected_score = score_mappings[personal]
-  result_score = outcome_mappings[result]
+  item_choice = choice_mappings[str(opponent)+str(result)]
+  selected_score = item_choice_mappings[item_choice]
+  result_score = outcome_mappings[win_mappings[result]]
 
   overall_score = selected_score + result_score
   return (result, overall_score)
 
-win_mappings = {
- "AX": "draw",
- "AY": "win",
- "AZ": "lose",
- "BX": "lose",
- "BY": "draw",
- "BZ": "win",
- "CX": "win",
- "CY": "lose",
- "CZ": "draw",
+# AX = Opponent picked Rock. X = Lose so pick Scissors.
+
+choice_mappings = {
+ "AX": "C",
+ "AY": "A",
+ "AZ": "B",
+ "BX": "A",
+ "BY": "B",
+ "BZ": "C",
+ "CX": "B",
+ "CY": "C",
+ "CZ": "A",
 }
 
-score_mappings = {
-  'X': 1,
-  'Y': 2,
-  'Z': 3,
+win_mappings = {
+  'X': "lose",
+  'Y': "draw",
+  'Z': "win",
+}
+
+item_choice_mappings = {
+  "A": 1,
+  "B": 2,
+  "C": 3,
 }
 
 outcome_mappings = {
@@ -36,7 +44,6 @@ outcome_mappings = {
   "draw": 3,
   "lose": 0,
 }
-
 
 def main():
   total_score = 0
