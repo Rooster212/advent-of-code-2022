@@ -60,8 +60,30 @@ class SimpleTest(unittest.TestCase):
       "ttgJtRGJQctTZtZT",
       "CrZsJsPPZsGzwwsLwLmpwMDw"
     ]
-    result = main.process(test_data)
-    self.assertEqual(result, 157)
+    total_priority_result, group_priority_result = main.process(test_data)
+    self.assertEqual(total_priority_result, 157)
+    self.assertEqual(group_priority_result, 70)
+
+
+  def test_find_common_item_1(self):
+    result = main.find_common_item([['a','b'],['a','c'],['a','d']])
+    self.assertEqual(result, set(['a']))
+  # example from day page part 2
+  def test_find_common_item_2(self):
+    result = main.find_common_item([
+      "vJrwpWtwJgWrhcsFMMfFFhFp",
+      "jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL",
+      "PmmdzqPrVvPwwTWBwg",
+    ])
+    self.assertEqual(result, set(['r']))
+  # example from day page part 2
+  def test_find_common_item_3(self):
+    result = main.find_common_item([
+      "wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn",
+      "ttgJtRGJQctTZtZT",
+      "CrZsJsPPZsGzwwsLwLmpwMDw"
+    ])
+    self.assertEqual(result, set(['Z']))
 
 if __name__ == '__main__':
   unittest.main()

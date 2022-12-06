@@ -17,15 +17,39 @@ def priorities_for_array(section_list):
     sum += letter_to_priority(item)
   return sum
 
+def find_common_item(item_sets):
+  return set(item_sets[0]).intersection(item_sets[1]).intersection(item_sets[2])
+
 def process(input_file_contents):
   priority_sum = 0
+
+  line_counter = 0
+  group_array = []
+  group_priority_sum = 0
   for line in input_file_contents:
     if not line.strip():
       break
     else:
-      items = retrieve_items_from_line(line)
+      clean_line = str(line).removesuffix('\n')
+      items = retrieve_items_from_line(clean_line)
       priority_sum += priorities_for_array(items)
-  return priority_sum
+
+      # Calculate badge
+      if line_counter <= 2:
+        group_array.append(set(clean_line))
+
+      if line_counter == 2:
+        common_item = find_common_item(group_array)
+        group_priority_sum += priorities_for_array(common_item)
+
+        # Reset group variables
+        line_counter = 0
+        group_array = []
+      else:
+        line_counter += 1
+
+
+  return priority_sum, group_priority_sum
 
 def main():
   with open("input.txt") as f:
