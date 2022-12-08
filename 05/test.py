@@ -37,11 +37,27 @@ class SimpleTest(unittest.TestCase):
         result = main.step_parse('move 15 from 2 to 13')
         self.assertEqual(result, (15, 2, 13))
 
-    def test_run(self):
+    def test_part1(self):
         stacks = self.get_test_stacks()
         steps = self.get_test_steps()
-        result = main.process_stacks_and_steps(stacks, steps)
-        main.print_stacks(result)
+        result = main.process_stacks_and_steps_part1(stacks, steps)
+
+        top_items = []
+        for stack in result:
+            top_item = stack[len(stack)-1]
+            top_items.append(top_item)
+        self.assertEqual(top_items, ["C", "M", "Z"])
+
+    def test_part2(self):
+        stacks = self.get_test_stacks()
+        steps = self.get_test_steps()
+        result = main.process_stacks_and_steps_part2(stacks, steps)
+
+        top_items = []
+        for stack in result:
+            top_item = stack[len(stack)-1]
+            top_items.append(top_item)
+        self.assertEqual(top_items, ["M", "C", "D"])
 
 
 if __name__ == '__main__':

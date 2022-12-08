@@ -25,13 +25,31 @@ def step_parse(line: str):
     return (int(line_parts[1]), int(line_parts[3]), int(line_parts[5]))
 
 
-def process_stacks_and_steps(stacks, steps):
+def process_stacks_and_steps_part1(stacks, steps):
     for line in steps:
         move_count, from_stack, to_stack = step_parse(line)
         for _i in range(move_count):
             item_to_move = stacks[from_stack-1].pop()
             stacks[to_stack-1].append(item_to_move)
-            print_stacks(stacks)
+    return stacks
+
+
+def process_stacks_and_steps_part2(stacks, steps):
+    for line in steps:
+        move_count, from_stack, to_stack = step_parse(line)
+
+        from_stack_index = from_stack - 1
+        to_stack_index = to_stack - 1
+
+        from_index = len(stacks[from_stack_index]) - move_count
+        items_to_move = stacks[from_stack_index][from_index:]
+        items_to_move.reverse()
+
+        remaining_items_stack_count = len(stacks[from_stack_index])-move_count
+        stacks[from_stack_index] = stacks[from_stack_index][:remaining_items_stack_count]
+
+        for item in range(len(items_to_move)):
+            stacks[to_stack_index].append(items_to_move.pop())
     return stacks
 
 
@@ -43,19 +61,40 @@ def print_stacks(stacks):
     print("----------------")
 
 
-def main():
-    stacks = get_challenge_input_stacks()
+def print_top_items(stacks):
+    stack_count = 1
+    top_items_as_input = ""
+    for stack in stacks:
+        top_item = stack[len(stack)-1]
+        top_items_as_input += top_item
+        print(str(stack_count) + " | " + top_item)
+        stack_count += 1
 
-    print("input stacks")
-    print_stacks(stacks)
+    print("As input | " + top_items_as_input)
+
+
+def main():
+    stacks = get_challenge_input_stacks().copy()
 
     with open("input_steps.txt") as f:
-        result = process_stacks_and_steps(stacks, f)
-        stack_count = 1
-        for stack in result:
-            top_item = stack[len(stack)-1]
-            print(str(stack_count) + " | " + top_item)
-            stack_count += 1
+        result_part_1 = process_stacks_and_steps_part1(stacks, f)
+        # Print part1
+        print("--------------------------")
+        print("Top items - Part 1")
+        print_top_items(result_part_1)
+
+        print("--------------------------")
+
+    with open("input_steps.txt") as f:
+        stacks = []
+        # Copy needed here to avoid modifying original array
+        stacks = get_challenge_input_stacks().copy()
+        result_part_2 = process_stacks_and_steps_part2(stacks, f)
+
+        # Print part2
+        print("Top items - Part 2")
+        print_top_items(result_part_2)
+        print("--------------------------")
 
 
 if __name__ == '__main__':
