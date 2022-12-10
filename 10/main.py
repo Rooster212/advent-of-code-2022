@@ -1,6 +1,3 @@
-import pprint
-
-
 def run_commands(commands, cycle_limit=1000):
     cycle_counter = 1
     x_register = 1

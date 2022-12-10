@@ -67,20 +67,6 @@ class Day10Tests(unittest.TestCase):
 
         self.assertEqual(sum_signal_strength, 13140)
 
-    # def test_processor_1(self):
-    #     # processor = main.Day10CommandProcessor(report_every=None)
-
-    #     # test_commands = self.get_test_commands()
-    #     # processor.run_commands(test_commands)
-
-    #     # for entry in processor.history:
-    #     #     print(processor.history[entry])
-    #     # print(processor.history[60])
-    #     # print(processor.history[100])
-    #     # print(processor.history[140])
-    #     # print(processor.history[180])
-    #     # print(processor.history[220])
-
 
 if __name__ == '__main__':
     unittest.main()
