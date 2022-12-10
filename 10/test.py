@@ -25,6 +25,7 @@ class Day10Tests(unittest.TestCase):
             'x': -1,
             'signal_strength': -6
         })
+        print("\n\n")
 
     def test_processor_2(self):
         commands = self.get_test_commands()
@@ -66,6 +67,14 @@ class Day10Tests(unittest.TestCase):
             sum_signal_strength += history[t]['signal_strength']
 
         self.assertEqual(sum_signal_strength, 13140)
+        print("\n\n")
+
+    def test_processor_for_part_2(self):
+        with open("input.txt") as f:
+            commands = f.read().splitlines()
+            history = main.run_commands(commands)
+
+        print("\n\n")
 
 
 if __name__ == '__main__':
